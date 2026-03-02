@@ -59,7 +59,7 @@ class Manager:
 
     def load_data(self):
         self.apartments = Apartment.from_json_file(self.parameters.apartments_json_path)
-
+        self.tenants = Tenant.from_json_file(self.parameters.tenants_json_path)
 
 if __name__ == '__main__':
     parameters = Parameters()
