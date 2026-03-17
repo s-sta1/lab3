@@ -81,6 +81,13 @@ class Bill(BaseModel):
             data = json.load(file)
         assert isinstance(data, list), "Expected a list of bills"
         return [Bill(**bill) for bill in data]
+    
+class TenantSettlement:
+    name: str
+    apartment: str
+    room: str
+    date_due: str
+    amount_pln: float
 
 
 class Manager:
@@ -100,7 +107,6 @@ class Manager:
         self.transfers = Transfer.from_json_file(self.parameters.transfers_json_path)
         self.bills = Bill.from_json_file(self.parameters.bills_json_path)
 
-
 if __name__ == '__main__':
     parameters = Parameters()
     manager = Manager(parameters)
@@ -119,3 +125,6 @@ if __name__ == '__main__':
         for transfer in manager.transfers:
             if transfer.tenant == tenant.name:
                 print('  ', transfer.amount_pln, transfer.date, transfer.settlement_year, transfer.settlement_month)
+    
+    for tenantSettlement in manager.tenants.values():
+        print(tenant.name, tenant.apartment, tenant.room, bill.date_due, "rachunki:", bill.amount_pln,",", "Czynsz:", tenant.rent_pln, ",", "Przelew:", transfer.amount_pln, "saldo: ", transfer.amount_pln-bill.amount_pln-tenant.rent_pln)
