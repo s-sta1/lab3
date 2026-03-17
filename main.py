@@ -3,8 +3,10 @@ from typing import Dict, List
 
 import json
 
+# - - - - - - - - - - - - - - -
 
 class Parameters(BaseModel):
+    
     apartments_json_path: str = 'data/apartments.json'
     tenants_json_path: str = 'data/tenants.json'
     transfers_json_path: str = 'data/transfers.json'
@@ -12,11 +14,13 @@ class Parameters(BaseModel):
 
 
 class Room(BaseModel):
+    
     name: str
     area_m2: float
 
 
 class Apartment(BaseModel):
+    
     key: str
     name: str
     location: str
@@ -33,6 +37,7 @@ class Apartment(BaseModel):
 
     
 class Tenant(BaseModel):
+    
     name: str
     apartment: str
     room: str
@@ -51,6 +56,7 @@ class Tenant(BaseModel):
     
 
 class Transfer(BaseModel):
+    
     amount_pln: float
     date: str
     settlement_year: int | None
@@ -67,6 +73,7 @@ class Transfer(BaseModel):
 
 
 class Bill(BaseModel):
+    
     amount_pln: float
     date_due: str
     apartment: str
@@ -81,7 +88,25 @@ class Bill(BaseModel):
             data = json.load(file)
         assert isinstance(data, list), "Expected a list of bills"
         return [Bill(**bill) for bill in data]
+    
+class TenantSettlement:
+    
+    name: str
+    apartment: str
+    room: str
+    date_due: str
+    amount_pln: float
+    
+class ApartmentSettlement:
+    
+    apartment: str
+    month: int
+    year: int
+    bills_total: float
+    bills_paid: float
+    to_regulate: float
 
+# - - - - - - - - - - - - - - -
 
 class Manager:
     def __init__(self, parameters: Parameters):
@@ -99,17 +124,6 @@ class Manager:
         self.tenants = Tenant.from_json_file(self.parameters.tenants_json_path)
         self.transfers = Transfer.from_json_file(self.parameters.transfers_json_path)
         self.bills = Bill.from_json_file(self.parameters.bills_json_path)
-        
-class ApartmentSettlement:
-    media_usage: str
-    bills: float
-    apartment: str
-    month: int
-    year: int
-    bills_total: float
-    bills_paid: float
-    to_regulate: float
-    
 
 if __name__ == '__main__':
     parameters = Parameters()
@@ -129,3 +143,6 @@ if __name__ == '__main__':
         for transfer in manager.transfers:
             if transfer.tenant == tenant.name:
                 print('  ', transfer.amount_pln, transfer.date, transfer.settlement_year, transfer.settlement_month)
+    
+    for tenantSettlement in manager.tenants.values():
+        print(tenant.name, tenant.apartment, tenant.room, bill.date_due, "rachunki:", bill.amount_pln,",", "Czynsz:", tenant.rent_pln, ",", "Przelew:", transfer.amount_pln, "saldo: ", transfer.amount_pln-bill.amount_pln-tenant.rent_pln)
