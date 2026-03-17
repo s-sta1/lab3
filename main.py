@@ -99,7 +99,17 @@ class Manager:
         self.tenants = Tenant.from_json_file(self.parameters.tenants_json_path)
         self.transfers = Transfer.from_json_file(self.parameters.transfers_json_path)
         self.bills = Bill.from_json_file(self.parameters.bills_json_path)
-
+        
+class ApartmentSettlement:
+    media_usage: str
+    bills: float
+    apartment: str
+    month: int
+    year: int
+    bills_total: float
+    bills_paid: float
+    to_regulate: float
+    
 
 if __name__ == '__main__':
     parameters = Parameters()
