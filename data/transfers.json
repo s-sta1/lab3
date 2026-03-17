@@ -1,9 +1,23 @@
-[
-    {
-        "amount_pln": 2500,
-        "date": "2025-02-04",
+{
+    "transfer-1":{
+        "amount_pln": 3000,
+        "date": "2025-01-10",
         "settlement_year": 2025,
         "settlement_month": 2,
         "tenant": "tenant-1"
+    },
+    "transfer-2":{
+        "amount_pln": 2300,
+        "date": "2025-03-04",
+        "settlement_year": 2025,
+        "settlement_month": 3,
+        "tenant": "tenant-2"
+    }, 
+    "transfer-3":{
+        "amount_pln": 2500,
+        "date": "2026-03-20",
+        "settlement_year": 2026,
+        "settlement_month": 4,
+        "tenant": "tenant-3"
     }
-]
+}

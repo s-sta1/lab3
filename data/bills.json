@@ -1,10 +1,18 @@
-[
-    {
+{
+    "Bill-1" :{
         "amount_pln": 760.00,
         "date_due": "2025-02-01",
         "settlement_year": 2025,
         "settlement_month": 1,
         "apartment": "apart-polanka",
         "type": "rent"
+    },
+    "Bill-2" :{
+        "amount_pln": 934.23,
+        "date_due": "2026-03-12",
+        "settlement_year": 2026,
+        "settlement_month": 4,
+        "apartment": "apart-polanka",
+        "type": "rent"
     }
-]
+}
